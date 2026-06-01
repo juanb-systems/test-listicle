@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Listicle Social Media Template</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@400;700;900&family=Poppins:wght@400;500;600;700;800;900&family=Montserrat:wght@400;500;600;700;800;900&family=Raleway:wght@400;500;600;700;800;900&family=Oswald:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app">
+  <!-- Sidebar Controls -->
+  <aside id="sidebar">
+    <div class="sidebar-header">
+      <h1>Listicle Builder</h1>
+      <p>Social Media Templates</p>
+    </div>
+
+    <div class="sidebar-scroll">
+
+      <!-- Export Section -->
+      <div class="section">
+        <h2 class="section-title">Export</h2>
+        <div class="export-type-row">
+          <label class="radio-pill">
+            <input type="radio" name="exportType" value="single" checked>
+            <span>Single</span>
+          </label>
+          <label class="radio-pill">
+            <input type="radio" name="exportType" value="carousel">
+            <span>Carousel</span>
+          </label>
+        </div>
+        <div class="btn-group">
+          <button class="btn btn-export" onclick="exportImage('jpg')">JPG</button>
+          <button class="btn btn-export" onclick="exportImage('png')">PNG</button>
+          <button class="btn btn-export btn-zip" onclick="exportZip()">ZIP All</button>
+        </div>
+      </div>
+
+      <!-- Design Section -->
+      <div class="section">
+        <h2 class="section-title">Design</h2>
+        <div class="design-grid" id="designGrid"></div>
+      </div>
+
+      <!-- Canvas Size -->
+      <div class="section">
+        <h2 class="section-title">Canvas Size</h2>
+        <div class="size-grid" id="sizeGrid"></div>
+        <div class="custom-size-row">
+          <input type="number" id="customW" placeholder="W" min="200" max="3000">
+          <span>×</span>
+          <input type="number" id="customH" placeholder="H" min="200" max="3000">
+          <button class="btn btn-sm" onclick="applyCustomSize()">Apply</button>
+        </div>
+      </div>
+
+      <!-- Typography -->
+      <div class="section">
+        <h2 class="section-title">Typography</h2>
+        <div class="field">
+          <label>Font Family</label>
+          <select id="fontFamily" onchange="applyFont()">
+            <option value="Inter">Inter</option>
+            <option value="Poppins">Poppins</option>
+            <option value="Montserrat">Montserrat</option>
+            <option value="Raleway">Raleway</option>
+            <option value="Playfair Display">Playfair Display</option>
+            <option value="Oswald">Oswald</option>
+            <option value="Nunito">Nunito</option>
+            <option value="Roboto">Roboto</option>
+          </select>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Title Size</label>
+            <input type="number" id="titleFontSize" value="32" min="12" max="120" oninput="applyFontSizes()">
+          </div>
+          <div class="field">
+            <label>Item Size</label>
+            <input type="number" id="itemFontSize" value="18" min="10" max="72" oninput="applyFontSizes()">
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Title Weight</label>
+            <select id="titleWeight" onchange="applyFontSizes()">
+              <option value="400">Regular</option>
+              <option value="600">SemiBold</option>
+              <option value="700">Bold</option>
+              <option value="800" selected>ExtraBold</option>
+              <option value="900">Black</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Item Weight</label>
+            <select id="itemWeight" onchange="applyFontSizes()">
+              <option value="400">Regular</option>
+              <option value="500">Medium</option>
+              <option value="600" selected>SemiBold</option>
+              <option value="700">Bold</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Text Effect</label>
+            <select id="textEffect" onchange="applyTextEffect()">
+              <option value="none">None</option>
+              <option value="shadow">Drop Shadow</option>
+              <option value="glow">Glow</option>
+              <option value="outline">Outline</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Letter Spacing</label>
+            <select id="titleLetterSpacing" onchange="applyLetterSpacing()">
+              <option value="-0.04">Tight</option>
+              <option value="-0.02" selected>Snug</option>
+              <option value="0">Normal</option>
+              <option value="0.04">Wide</option>
+              <option value="0.1">Wider</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Colors -->
+      <div class="section">
+        <h2 class="section-title">Colors</h2>
+        <div class="color-fields">
+          <div class="field">
+            <label>Background</label>
+            <div class="color-input-wrap">
+              <input type="color" id="colorBg" value="#1a1a2e" oninput="applyColors()">
+              <input type="text" id="colorBgHex" value="#1a1a2e" oninput="syncColorFromHex('colorBg','colorBgHex')" maxlength="7">
+            </div>
+          </div>
+          <div class="field">
+            <label>Accent</label>
+            <div class="color-input-wrap">
+              <input type="color" id="colorAccent" value="#e94560" oninput="applyColors()">
+              <input type="text" id="colorAccentHex" value="#e94560" oninput="syncColorFromHex('colorAccent','colorAccentHex')" maxlength="7">
+            </div>
+          </div>
+          <div class="field">
+            <label>Title Text</label>
+            <div class="color-input-wrap">
+              <input type="color" id="colorTitle" value="#ffffff" oninput="applyColors()">
+              <input type="text" id="colorTitleHex" value="#ffffff" oninput="syncColorFromHex('colorTitle','colorTitleHex')" maxlength="7">
+            </div>
+          </div>
+          <div class="field">
+            <label>Item Text</label>
+            <div class="color-input-wrap">
+              <input type="color" id="colorItem" value="#e2e8f0" oninput="applyColors()">
+              <input type="text" id="colorItemHex" value="#e2e8f0" oninput="syncColorFromHex('colorItem','colorItemHex')" maxlength="7">
+            </div>
+          </div>
+          <div class="field">
+            <label>Number Color</label>
+            <div class="color-input-wrap">
+              <input type="color" id="colorNumber" value="#e94560" oninput="applyColors()">
+              <input type="text" id="colorNumberHex" value="#e94560" oninput="syncColorFromHex('colorNumber','colorNumberHex')" maxlength="7">
+            </div>
+          </div>
+          <div class="field">
+            <label>Card BG</label>
+            <div class="color-input-wrap">
+              <input type="color" id="colorCard" value="#16213e" oninput="applyColors()">
+              <input type="text" id="colorCardHex" value="#16213e" oninput="syncColorFromHex('colorCard','colorCardHex')" maxlength="7">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Background Effects -->
+      <div class="section">
+        <h2 class="section-title">Background</h2>
+        <div class="field">
+          <label>Style</label>
+          <select id="bgStyle" onchange="applyBackground()">
+            <option value="solid">Solid Color</option>
+            <option value="gradient-lr">Gradient (L→R)</option>
+            <option value="gradient-tb">Gradient (T→B)</option>
+            <option value="gradient-radial">Radial Gradient</option>
+            <option value="gradient-diagonal">Diagonal Gradient</option>
+          </select>
+        </div>
+        <div class="field" id="bgColor2Field" style="display:none">
+          <label>Gradient End</label>
+          <div class="color-input-wrap">
+            <input type="color" id="colorBg2" value="#0f3460" oninput="applyBackground()">
+            <input type="text" id="colorBg2Hex" value="#0f3460" oninput="syncColorFromHex('colorBg2','colorBg2Hex')" maxlength="7">
+          </div>
+        </div>
+      </div>
+
+      <!-- Background Image / Pattern -->
+      <div class="section">
+        <h2 class="section-title">Background Image</h2>
+        <div class="bgi-tabs">
+          <button class="bgi-tab active" onclick="switchBgiTab('pattern',this)">Patterns</button>
+          <button class="bgi-tab" onclick="switchBgiTab('photo',this)">Photos</button>
+          <button class="bgi-tab" onclick="switchBgiTab('custom',this)">Custom</button>
+        </div>
+
+        <!-- Patterns tab -->
+        <div id="bgiTabPattern">
+          <div class="bgi-grid" id="patternGrid"></div>
+          <div class="field" style="margin-top:8px">
+            <label>Pattern Color</label>
+            <div class="color-input-wrap">
+              <input type="color" id="patternColor" value="#ffffff" oninput="applyPatternColor()">
+              <input type="text" id="patternColorHex" value="#ffffff" oninput="syncColorFromHex('patternColor','patternColorHex')" maxlength="7">
+            </div>
+          </div>
+        </div>
+
+        <!-- Photos tab (picsum.photos — CC0 licensed) -->
+        <div id="bgiTabPhoto" style="display:none">
+          <p class="bgi-note">CC0 royalty-free photos via picsum.photos</p>
+          <div class="bgi-grid bgi-grid-photos" id="photoGrid"></div>
+        </div>
+
+        <!-- Custom URL tab -->
+        <div id="bgiTabCustom" style="display:none">
+          <div class="field">
+            <label>Image URL</label>
+            <input type="text" id="bgCustomUrl" placeholder="https://..." oninput="applyCustomBg()">
+          </div>
+        </div>
+
+        <!-- Shared controls -->
+        <div class="field" style="margin-top:12px">
+          <label>Opacity <span id="bgOverlayOpacityVal">18%</span></label>
+          <input type="range" id="bgOverlayOpacity" min="0" max="100" value="18" oninput="applyBgOverlay()" class="range-slider">
+        </div>
+        <div class="field">
+          <label>Blend Mode</label>
+          <select id="bgOverlayBlend" onchange="applyBgOverlay()">
+            <option value="normal">Normal</option>
+            <option value="overlay">Overlay</option>
+            <option value="soft-light">Soft Light</option>
+            <option value="multiply">Multiply</option>
+            <option value="screen">Screen</option>
+            <option value="color-dodge">Color Dodge</option>
+            <option value="luminosity">Luminosity</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Layout -->
+      <div class="section">
+        <h2 class="section-title">Layout</h2>
+        <div class="field">
+          <label>Item Style</label>
+          <select id="itemStyle" onchange="applyItemStyle()">
+            <option value="numbered">Numbered</option>
+            <option value="bullet">Bullet Points</option>
+            <option value="emoji">Emoji Prefix</option>
+            <option value="icon">Icon Badges</option>
+            <option value="card">Card Style</option>
+          </select>
+        </div>
+        <div class="field" id="emojiField" style="display:none">
+          <label>Emoji</label>
+          <input type="text" id="listEmoji" value="✅" oninput="applyItemStyle()" style="width:60px;text-align:center;font-size:20px">
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Padding</label>
+            <input type="number" id="canvasPadding" value="40" min="0" max="120" oninput="applyLayout()">
+          </div>
+          <div class="field">
+            <label>Gap</label>
+            <input type="number" id="itemGap" value="16" min="4" max="60" oninput="applyLayout()">
+          </div>
+        </div>
+        <div class="field">
+          <label>Title Align</label>
+          <div class="align-btns">
+            <button class="align-btn active" data-align="left" onclick="setTitleAlign(this)">≡</button>
+            <button class="align-btn" data-align="center" onclick="setTitleAlign(this)">☰</button>
+            <button class="align-btn" data-align="right" onclick="setTitleAlign(this)">≡</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>Show Dividers</label>
+          <label class="toggle">
+            <input type="checkbox" id="showDividers" checked onchange="applyLayout()">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <div class="field">
+          <label>Show Watermark</label>
+          <label class="toggle">
+            <input type="checkbox" id="showWatermark" onchange="applyLayout()">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <div class="field" id="watermarkField" style="display:none">
+          <label>Watermark Text</label>
+          <input type="text" id="watermarkText" value="@yourhandle" oninput="applyLayout()">
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="section">
+        <h2 class="section-title">Content</h2>
+        <div class="field">
+          <label>Title</label>
+          <textarea id="postTitle" rows="2" oninput="applyContent()">10 Tips to Boost Productivity</textarea>
+        </div>
+        <div class="field">
+          <label>Subtitle</label>
+          <input type="text" id="postSubtitle" value="Level up your workflow today" oninput="applyContent()">
+        </div>
+        <div id="itemList"></div>
+        <div class="btn-group-col">
+          <button class="btn btn-sm btn-add" onclick="addItem()">+ Add Item</button>
+          <button class="btn btn-sm btn-carousel" onclick="toggleCarouselMode()">
+            <span id="carouselBtnText">Split to Carousel</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Carousel Controls -->
+      <div class="section" id="carouselControls" style="display:none">
+        <h2 class="section-title">Carousel</h2>
+        <div class="field">
+          <label>Items per Slide</label>
+          <input type="number" id="itemsPerSlide" value="3" min="1" max="8" oninput="renderCarousel()">
+        </div>
+        <div class="field">
+          <label>Show Progress</label>
+          <label class="toggle">
+            <input type="checkbox" id="showProgress" checked onchange="renderCarousel()">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <div class="carousel-nav">
+          <button class="btn btn-sm" onclick="prevSlide()">← Prev</button>
+          <span id="slideIndicator">1 / 1</span>
+          <button class="btn btn-sm" onclick="nextSlide()">Next →</button>
+        </div>
+      </div>
+
+    </div>
+  </aside>
+
+  <!-- Preview Area -->
+  <main id="preview-area">
+    <div id="preview-wrapper">
+      <div id="canvas-container">
+        <div id="canvas" class="canvas">
+          <!-- Rendered inside by JS -->
+        </div>
+      </div>
+      <div id="carousel-dots"></div>
+    </div>
+    <div id="zoom-controls">
+      <button onclick="zoom(-0.1)">−</button>
+      <span id="zoomLevel">75%</span>
+      <button onclick="zoom(0.1)">+</button>
+      <button onclick="resetZoom()">Fit</button>
+    </div>
+  </main>
+</div>
+
+<!-- Templates hidden pool -->
+<div id="templates-pool" style="display:none"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
