@@ -6,6 +6,35 @@ A browser-based tool for building aesthetic listicle posts for Instagram, Storie
 
 ---
 
+## Demo
+
+[![Watch the demo on YouTube](https://img.youtube.com/vi/A1DIiYFitUo/maxresdefault.jpg)](https://youtu.be/A1DIiYFitUo)
+
+> Click the thumbnail above to watch a short walkthrough of the template in action.
+
+---
+
+## Download
+
+**Option 1 — Direct ZIP download (no Git required):**
+
+1. Click the green **Code** button at the top of this page
+2. Select **Download ZIP**
+3. Extract the folder anywhere on your computer
+4. Open `index.html` in your browser — done
+
+**Option 2 — Clone with Git:**
+
+```bash
+git clone https://github.com/juanb-systems/test-listicle.git
+cd test-listicle
+# Open index.html in your browser
+```
+
+> No build step, no server, no dependencies to install. Works entirely in your browser.
+
+---
+
 ## Features
 
 ### Design Presets
@@ -70,23 +99,6 @@ Click **Split to Carousel** to automatically break your list into slides:
 | **JPG** | Current slide | Current slide |
 | **PNG** | Current slide | Current slide |
 | **ZIP** | JPG + PNG pair | All slides as PNGs |
-
----
-
-## Getting Started
-
-1. Clone or download this repo
-2. Open `index.html` in any modern browser (Chrome, Edge, Firefox, Safari)
-3. Design your post using the sidebar
-4. Click **JPG**, **PNG**, or **ZIP All** to export
-
-```bash
-git clone https://github.com/juanb-systems/test-listicle.git
-cd test-listicle
-# Open index.html in your browser
-```
-
-> No build step, no server, no dependencies to install. Everything runs locally.
 
 ---
 
